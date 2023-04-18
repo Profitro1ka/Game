@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "kQncRToWlf0X+fMaJmLQlijBuYCkgQF9iaauVOtpEsZA1wOuiHBu4IeWMcszGHx9AlUUrDQsygU64hYl5o3jvA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\turki\\RiderProjects\\MyGame\\MyGame\\MyGame.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\turki\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
+    "C:\\Users\\turki\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512",
+    "C:\\Users\\turki\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.14\\microsoft.netcore.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\turki\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.14\\microsoft.windowsdesktop.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\turki\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.14\\microsoft.aspnetcore.app.ref.6.0.14.nupkg.sha512",
+    "C:\\Users\\turki\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.14\\microsoft.netcore.app.host.win-x64.6.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}
