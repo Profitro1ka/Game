@@ -1,2 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/квадрат.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/box.xnb","TextureProcessor","Texture2DContent",4094,65621,0,1593632
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",2006,16469,0,333209
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/triangle.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/triangle.xnb","TextureProcessor","Texture2DContent",477,4181,0,0169016
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/квадрат.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/box.xnb","TextureProcessor","Texture2DContent",4094,65621,0,0072026

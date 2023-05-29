@@ -5,9 +5,11 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png</File>
+    <File>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/triangle.png</File>
     <File>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/квадрат.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File>box.png</File>
   </DestFiles>

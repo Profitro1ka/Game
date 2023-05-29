@@ -26,3 +26,4 @@ C:\Users\turki\RiderProjects\MyGame\MyGame\obj\Debug\net6.0\MyGame.genruntimecon
 C:\Users\turki\RiderProjects\MyGame\MyGame\obj\Debug\net6.0\ref\MyGame.dll
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\bullet.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\box.xnb
+C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\triangle.xnb

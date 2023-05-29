@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,9 +9,7 @@ public class Movable: Sprite
 {
     public float Speed = 5;
     
-    public Movable(Texture2D texture2D, int width, int height) : base(texture2D, width, height)
-    {
-    }
+    //public float BulletSpeed = 10;
 
     public Movable(Texture2D texture2D) : base(texture2D)
     {
@@ -20,9 +19,14 @@ public class Movable: Sprite
     {
     }
 
-    public virtual void Update()
+    public override void Update(GameTime gameTime, List<Sprite> sprites)
     {
         Move();
+    }
+
+    protected virtual void SearchTarget()
+    {
+        
     }
 
     protected virtual void Move()
