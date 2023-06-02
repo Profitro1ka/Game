@@ -6,17 +6,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MyGame;
 
-public class Player : Movable, IShooter
+public class Player : Movable//, IShooter
 {
-    public int Hp;
-    public int AttackCD;
     public int DashRange = 100;
     public int DashCDTime = 100;
     
-    private int _dashCD;
     private KeyboardState _currentKey;
     private KeyboardState _previousKey;
-    public Bullet Bullet { get; set; }
+    public float AttackCd { get ; set; }
+    public float AttackRange => CurBullet.LifeSpan * CurBullet.Speed;
     
     public Player(Texture2D texture2D) : base(texture2D)
     {
@@ -26,9 +24,11 @@ public class Player : Movable, IShooter
     {
     }
     
-    public Player(Texture2D texture2D, Vector2 position, Bullet bullet) : base(texture2D, position)
+    public Player(Texture2D texture2D, Vector2 position, Bullet curBullet) : base(texture2D, position)
     {
-        Bullet = bullet;
+        CurBullet = curBullet;
+        AttackCd = 0.5f;
+        Hp = 100;
     }
 
     public override void Update(GameTime gameTime, List<Sprite> sprites)
@@ -38,72 +38,61 @@ public class Player : Movable, IShooter
         _currentKey = Keyboard.GetState();
         Move();
         Dash();
-        Shoot(sprites);
+        Shoot(sprites, gameTime);
+        IsDead();
     }
-
+    
     protected override void Move()
     {
         if (Keyboard.GetState().IsKeyDown(Keys.A))
-        {
             Position.X -= Speed;
-        }
 
         if (Keyboard.GetState().IsKeyDown(Keys.D))
-        {
             Position.X += Speed;
-        }
-
+        
         if (Keyboard.GetState().IsKeyDown(Keys.W))
-        {
-            //Position += DirectionToTarget * Speed;
             Position.Y -= Speed;
-        }
-
+        
         if (Keyboard.GetState().IsKeyDown(Keys.S))
-        {
             Position.Y += Speed;
-        }
     }
     
     protected override void SearchTarget()
     {
-        var mouseState = Mouse.GetState();
-        _target = new Vector2(mouseState.X, mouseState.Y);
-        DirectionToTarget = _target - Position;
+        Target = Game1.Cursor;
+
+        DirectionToTarget = Target - Position;
         DirectionToTarget.Normalize();
-        _rotation = (float)Math.Atan2(DirectionToTarget.Y, DirectionToTarget.X);
+        Rotation = (float)Math.Atan2(DirectionToTarget.Y, DirectionToTarget.X);
     }
 
     private void Dash()
     {
         if (_currentKey.IsKeyDown(Keys.Space) && _currentKey != _previousKey)
-        {
             Position += DirectionToTarget * DashRange;
-
-            //_dashCD = DashCDTime;
-        }
-        // else if(_dashCD - 1 >= 0 )
-        //     _dashCD -= 1;
     }
 
+    public override void Shoot(List<Sprite> sprites, GameTime gameTime)
+    {
+        if (_currentKey.IsKeyDown(Keys.C) && _previousKey.IsKeyUp(Keys.C) && _ShootTimer > AttackCd)
+        {
+            AddBullet(sprites);
+            _ShootTimer = 0;
+        }
+        else
+            ShooterTimer(gameTime);
+    }
+    
     private void AddBullet(List<Sprite> sprites)
     {
-        var bullet = Bullet.Clone() as Bullet;
+        var bullet = CurBullet.Clone() as Bullet;
         bullet.Position = Position;
         bullet.LifeSpan = 2f;
         bullet.Speed = 10f;
         bullet.Parent = this;
+        bullet.Damage = 10f;
         bullet.DirectionToTarget = DirectionToTarget;
         
         sprites.Add(bullet);
-    }
-
-    public void Shoot(List<Sprite> sprites)
-    {
-        if (_currentKey.IsKeyDown(Keys.C) && _previousKey.IsKeyUp(Keys.C))
-        {
-            AddBullet(sprites);
-
-        }
     }
 }

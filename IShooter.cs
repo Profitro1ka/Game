@@ -1,14 +1,12 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace MyGame;
 
 public interface IShooter
 {
-    Bullet Bullet { get; set; }
+    public float AttackCd { get; set; }
+    Bullet CurBullet { get; set; }
 
-    public void Shoot(List<Sprite> sprites);
-    private void AddBullet(List<Sprite> sprites)
-    {
-        throw new System.NotImplementedException();
-    }
+    void Shoot(List<Sprite> sprites, GameTime gameTime);
 }

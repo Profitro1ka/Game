@@ -10,8 +10,16 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private Player _player;
+    private GeneratorEnemy _generatorEnemy;
+    private Camera _camera { get; set; }
+    public static Vector2 Cursor { get; private set; }
+    public static Vector2 ScreenCenter => new (ScreenWight / 2, ScreenHeight / 2);
     
-    private List<Sprite> _sprites;
+    public static int ScreenHeight;
+    public static int ScreenWight;
+    
+    
+    public static List<Sprite> Sprites;// невероятно тупой костыль 
 
     public Game1()
     {
@@ -22,17 +30,29 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-        _sprites = new List<Sprite>();
+        Sprites = new List<Sprite>();
+        ScreenHeight = _graphics.PreferredBackBufferHeight;
+        ScreenWight = _graphics.PreferredBackBufferWidth;
+        
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        var bullet = Content.Load<Texture2D>("bullet");
-        _sprites.Add(new Player(Content.Load<Texture2D>("triangle"), new Vector2(100,100), 
-            new Bullet(bullet)));
+        
+        var bullet = new Bullet(Content.Load<Texture2D>("bullet"));
+
+        _player = new Player(Content.Load<Texture2D>("triangle"), new Vector2(0, 0), bullet);
+        
+        _generatorEnemy = new GeneratorEnemy(new IPatternAttack[] { 
+            new DefaultAttack(Content.Load<Texture2D>("квадрат")), 
+            new RoundAttack(Content.Load<Texture2D>("bluesquare"))}, 
+            Sprites, _player, bullet);
+        
+        _camera = new Camera();
+        
+        Sprites.Add(_player);
         
     }
 
@@ -41,17 +61,24 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
+        
+        Cursor = Mouse.GetState().Position.ToVector2();          
+        
+        Cursor = new Vector2(-(ScreenCenter.X - Cursor.X) + _player.Position.X, -(ScreenCenter.Y - Cursor.Y) + _player.Position.Y);
+        _camera.Follow(_player);
 
-        foreach (var sprite in _sprites.ToArray())
+        _generatorEnemy.AddRandomEnemy(gameTime);
+
+        foreach (var sprite in Sprites.ToArray())
         {
-            sprite.Update(gameTime, _sprites);
+            sprite.Update(gameTime, Sprites);
         }
 
-        for (int i = 0; i < _sprites.Count; i++)
+        for (var i = 0; i < Sprites.Count; i++)
         {
-            if (_sprites[i].IsRemoved)
+            if (Sprites[i].IsRemoved)
             {
-                _sprites.RemoveAt(i);
+                Sprites.RemoveAt(i);
                 i--;
             }
         }
@@ -63,12 +90,10 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
+        _spriteBatch.Begin(transformMatrix: _camera.Transform);
         
-        foreach (var sprite in _sprites)
-        {
+        foreach (var sprite in Sprites)
             sprite.Draw(_spriteBatch);
-        }
         
         _spriteBatch.End();
 

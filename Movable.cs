@@ -5,23 +5,34 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MyGame;
 
-public class Movable: Sprite
+public class Movable: Sprite, IShooter
 {
     public float Speed = 5;
+    public float Hp;
     
-    //public float BulletSpeed = 10;
-
-    public Movable(Texture2D texture2D) : base(texture2D)
+    protected float _ShootTimer;
+    protected Vector2 Target; 
+    public Vector2 DirectionToTarget;
+    
+    protected Movable(Texture2D texture2D) : base(texture2D)
     {
     }
 
-    public Movable(Texture2D texture2D, Vector2 position) : base(texture2D, position)
+    protected Movable(Texture2D texture2D, Vector2 position) : base(texture2D, position)
     {
     }
 
     public override void Update(GameTime gameTime, List<Sprite> sprites)
     {
         Move();
+        SearchTarget();
+        Shoot(sprites, gameTime);
+        IsDead();
+    }
+
+    protected override bool Сollide()
+    {
+        return base.Сollide();// тут нужно добавить соприкосновение со стеной и запрет прохода дальше
     }
 
     protected virtual void SearchTarget()
@@ -31,6 +42,26 @@ public class Movable: Sprite
 
     protected virtual void Move()
     {
-        
+    }
+
+    public float AttackCd { get ; set ; }
+
+    public float AttackRange { get; }
+
+    public Bullet CurBullet { get; set; }
+
+    public virtual void Shoot(List<Sprite> sprites, GameTime gameTime)
+    {
+    }
+
+    protected void ShooterTimer(GameTime gameTime)
+    {
+        _ShootTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+    }
+
+    protected void IsDead()
+    {
+        if (Hp <= 0)
+            IsRemoved = true;
     }
 }
