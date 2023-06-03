@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../Downloads/bluesquare.png
+#begin ../../../../Downloads/blueEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../Downloads/bluesquare.png;bluesquare.png
+/build:../../../../Downloads/blueEnemy.png;blueEnemy.png
 
-#begin bluesquare.png
+#begin ../../../../Downloads/bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:bluesquare.png
+/build:../../../../Downloads/bullet.png;bullet.png
 
-#begin bluesquare.png
+#begin ../../../../Downloads/wall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:bluesquare.png
+/build:../../../../Downloads/wall.png;wall.png
 
 #begin bullet.png
 /importer:TextureImporter
@@ -73,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:triangle.png
 
-#begin квадрат.png
+#begin yellowEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,5 +83,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:квадрат.png;box.png
+/build:yellowEnemy.png
 

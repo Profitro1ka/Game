@@ -26,10 +26,11 @@ public class Bullet: Movable
         {
             if (this != otherSprite && Parent != otherSprite &&  Bounds.Intersects(otherSprite.Bounds))
             {
-                if (Parent is FirstEnemy && otherSprite is FirstEnemy)
+                if (otherSprite is Wall)
                     IsRemoved = true;
-                
-                else if (otherSprite is not Bullet && otherSprite is Movable movable)
+                if(Parent is FirstEnemy && otherSprite is FirstEnemy )
+                    continue;
+                if (otherSprite is not Bullet && otherSprite is Movable movable)
                 {
                     movable.Hp -= Damage;
                     IsRemoved = true;
@@ -37,7 +38,7 @@ public class Bullet: Movable
             }
         }
 
-        return base.Сollide();
+        return true;
     }
 
     public override void Update(GameTime gameTime, List<Sprite> sprites)

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -39,20 +39,8 @@ public class Sprite : ICloneable
 
     protected virtual bool Сollide()
     {
-        // foreach (var otherSprite in Game1.Sprites)
-        // {
-        //     if (this != otherSprite && this!= otherSprite.Parent && Bounds.Intersects(otherSprite.Bounds))
-        //     {
-        //         if (this is Movable movable1 && otherSprite is Bullet bullet1)
-        //         {
-        //             movable1.Hp -= bullet1.Damage;
-        //             bullet1.IsRemoved = true;
-        //         }
-        //     }
-        // }
-
-
-        return false;
+        return Game1.Sprites
+            .Any(otherSprite => this != otherSprite && otherSprite is Wall && Bounds.Intersects(otherSprite.Bounds));
     }
     
     public void Draw(SpriteBatch spriteBatch)

@@ -1,4 +1,3 @@
-C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\квадрат.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\MyGame.exe
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\MyGame.deps.json
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\MyGame.runtimeconfig.json
@@ -25,6 +24,7 @@ C:\Users\turki\RiderProjects\MyGame\MyGame\obj\Debug\net6.0\MyGame.pdb
 C:\Users\turki\RiderProjects\MyGame\MyGame\obj\Debug\net6.0\MyGame.genruntimeconfig.cache
 C:\Users\turki\RiderProjects\MyGame\MyGame\obj\Debug\net6.0\ref\MyGame.dll
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\bullet.xnb
-C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\box.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\triangle.xnb
-C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\bluesquare.xnb
+C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\blueEnemy.xnb
+C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\yellowEnemy.xnb
+C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\wall.xnb

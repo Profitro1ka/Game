@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace MyGame;
 
@@ -28,11 +27,6 @@ public class Movable: Sprite, IShooter
         SearchTarget();
         Shoot(sprites, gameTime);
         IsDead();
-    }
-
-    protected override bool Сollide()
-    {
-        return base.Сollide();// тут нужно добавить соприкосновение со стеной и запрет прохода дальше
     }
 
     protected virtual void SearchTarget()

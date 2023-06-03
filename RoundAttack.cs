@@ -11,7 +11,11 @@ public class RoundAttack: IPatternAttack
     {
         Texture = texture;
     }
-    
+
+    public float AttackRange => 800f;
+    public float AttackCd => 3f;
+
+
     public void Pattern(List<Sprite> sprites, Bullet bullet, Sprite parent, Vector2 directionToTarget,Vector2 position)
     {
         for (double i = 0; i < Math.PI * 2; i+= Math.PI/8)

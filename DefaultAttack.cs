@@ -10,7 +10,11 @@ public class DefaultAttack : IPatternAttack
     {
         Texture = texture;
     }
-    
+
+    public float AttackRange => 500f;
+    public float AttackCd => 1f;
+
+
     public void Pattern(List<Sprite> sprites, Bullet bullet, Sprite parent, Vector2 directionToTarget,Vector2 position)
     {
         AddBullet(sprites, bullet, parent, directionToTarget, position);
@@ -22,7 +26,7 @@ public class DefaultAttack : IPatternAttack
     {
         var thisBullet = bullet.Clone() as Bullet;
         thisBullet.Position = position;
-        thisBullet.LifeSpan = 2f;
+        thisBullet.LifeSpan = 5f;
         thisBullet.Speed = 10f;
         thisBullet.Parent = parent;
         thisBullet.Damage = 10f;

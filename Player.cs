@@ -8,13 +8,12 @@ namespace MyGame;
 
 public class Player : Movable//, IShooter
 {
-    public int DashRange = 100;
-    public int DashCDTime = 100;
+    private int _dashRange = 100;
     
     private KeyboardState _currentKey;
     private KeyboardState _previousKey;
-    public float AttackCd { get ; set; }
-    public float AttackRange => CurBullet.LifeSpan * CurBullet.Speed;
+    private float _attackCd { get ; }
+    public new float AttackRange => CurBullet.LifeSpan * CurBullet.Speed;
     
     public Player(Texture2D texture2D) : base(texture2D)
     {
@@ -27,7 +26,7 @@ public class Player : Movable//, IShooter
     public Player(Texture2D texture2D, Vector2 position, Bullet curBullet) : base(texture2D, position)
     {
         CurBullet = curBullet;
-        AttackCd = 0.5f;
+        _attackCd = 0.5f;
         Hp = 100;
     }
 
@@ -49,10 +48,10 @@ public class Player : Movable//, IShooter
 
         if (Keyboard.GetState().IsKeyDown(Keys.D))
             Position.X += Speed;
-        
+
         if (Keyboard.GetState().IsKeyDown(Keys.W))
             Position.Y -= Speed;
-        
+
         if (Keyboard.GetState().IsKeyDown(Keys.S))
             Position.Y += Speed;
     }
@@ -69,12 +68,14 @@ public class Player : Movable//, IShooter
     private void Dash()
     {
         if (_currentKey.IsKeyDown(Keys.Space) && _currentKey != _previousKey)
-            Position += DirectionToTarget * DashRange;
+        {
+            Position += DirectionToTarget * _dashRange;
+        }
     }
 
     public override void Shoot(List<Sprite> sprites, GameTime gameTime)
     {
-        if (_currentKey.IsKeyDown(Keys.C) && _previousKey.IsKeyUp(Keys.C) && _ShootTimer > AttackCd)
+        if (_currentKey.IsKeyDown(Keys.C) && _previousKey.IsKeyUp(Keys.C) && _ShootTimer > _attackCd)
         {
             AddBullet(sprites);
             _ShootTimer = 0;

@@ -8,11 +8,12 @@ namespace MyGame;
 public class FirstEnemy : Movable, IEnemy
 {
     private Player _player;
-    public float AttackCd { get; }
-    public float AttackRange = 500f;
+    private float _attackCd;
     private float _toPlayerRange => (_player.Position - Position).Length();
+    private float _attackRange;
 
     public IPatternAttack[] PatternAttacks { get; set; } 
+    
     
     protected FirstEnemy(Texture2D texture2D) : base(texture2D)
     {
@@ -26,9 +27,11 @@ public class FirstEnemy : Movable, IEnemy
     {
         _player = player;
         CurBullet = curBullet;
-        AttackCd = 1f;
+        _attackCd = 1f;
         Hp = 100;
         PatternAttacks = new []{patternAttack};
+        _attackRange = PatternAttacks[0].AttackRange;
+        _attackCd = PatternAttacks[0].AttackCd;
     }
     
     protected override void SearchTarget()
@@ -41,12 +44,14 @@ public class FirstEnemy : Movable, IEnemy
 
     public override void Shoot(List<Sprite> sprites, GameTime gameTime)
     {
-        if (_ShootTimer > AttackCd)
+        if (_ShootTimer > _attackCd)
         {
             if (CanShoot())
             {
                 foreach (var patternAttack in PatternAttacks)
                 {
+                    _attackRange = patternAttack.AttackRange;
+                    _attackCd = patternAttack.AttackCd;
                     patternAttack.Pattern(sprites, CurBullet, this, DirectionToTarget, Position);
                 }
 
@@ -62,12 +67,12 @@ public class FirstEnemy : Movable, IEnemy
 
     protected override void Move()
     {
-        if (_toPlayerRange > 0.9 * AttackRange)
+        if (_toPlayerRange > 0.9 * _attackRange)
             Position += Speed * DirectionToTarget;
     }
 
     public bool CanShoot()
     {
-        return AttackRange > _toPlayerRange ;
+        return _attackRange > _toPlayerRange ;
     }
 }
