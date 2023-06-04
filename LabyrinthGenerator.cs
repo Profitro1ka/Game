@@ -71,35 +71,43 @@ public class LocationGenerator
     {
         var rows = _location.Map.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
 
-        var f = false;
+        var delta = position - SearchEnter(rows, position);
+        
         for (var i = 0; i < rows[0].Length; i++)
         for (var j = 0; j < rows.Length; j++)
         {
-            var x =  (int)position.X + i * _spriteSize;
-            var y =  (int)position.Y + j * _spriteSize;
+            var x =  (int)(position.X + i * _spriteSize + delta.X);
+            var y =  (int)(position.Y + j * _spriteSize + delta.Y);
 
             switch (rows[j][i])
             {
                 case '#':
-                    wall.AddWall(sprites, new Vector2(x, y), wall);
+                    wall.AddWall(sprites, new Vector2(x , y), wall);
                     break;
                 case 'e': 
                     _location.Exit = new Rectangle(new Point(x,y), new Point(x+_spriteSize, y+_spriteSize));
                     break;
                 case 'E':
-                    if (!f)
-                    {
-                        position = new Vector2(x - i * _spriteSize, y - 2 * j * _spriteSize);
-                        i = 0;
-                        j = 0;
-                        f = true;
-                    }
-
                     _location.Enter = new Rectangle(new Point(x,y), new Point(x+_spriteSize, y+_spriteSize));
                     break;
             }
         }
 
         CreatedLocation.Add(_location);
+    }
+
+    private Vector2 SearchEnter(string[] rows, Vector2 position)
+    {
+        for (var i = 0; i < rows[0].Length; i++)
+        for (var j = 0; j < rows.Length; j++)
+        {
+            var x = (int)position.X + i * _spriteSize;
+            var y = (int)position.Y + j * _spriteSize;
+
+            if (rows[j][i] == 'E')
+                return new Vector2(x, y);
+        }
+
+        throw new Exception();
     }
 }

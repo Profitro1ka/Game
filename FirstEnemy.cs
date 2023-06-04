@@ -71,7 +71,7 @@ public class FirstEnemy : Movable, IEnemy
             Position += Speed * DirectionToTarget;
     }
 
-    public bool CanShoot()
+    private bool CanShoot()
     {
         return _attackRange > _toPlayerRange ;
     }

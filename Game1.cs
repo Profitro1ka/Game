@@ -14,12 +14,13 @@ public class Game1 : Game
     private LabyrinthGenerator _labyrinthGenerator;
     private Camera _camera { get; set; }
     public static Vector2 Cursor { get; private set; }
-    private static Vector2 ScreenCenter => new (ScreenWight / 2, ScreenHeight / 2);
+    private static Vector2 _screenCenter => new (ScreenWight / 2, ScreenHeight / 2);
     
     public static int ScreenHeight;
     public static int ScreenWight;
     
     public static List<Sprite> Sprites;
+    private SpriteFont _font;
 
     public Game1()
     {
@@ -41,7 +42,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         var bullet = new Bullet(Content.Load<Texture2D>("bullet"));
-        _player = new Player(Content.Load<Texture2D>("triangle"), new Vector2(100, 100), bullet);
+        _player = new Player(Content.Load<Texture2D>("triangle"), new Vector2(200, 200), bullet);
 
         _generatorEnemy = new GeneratorEnemy(new IPatternAttack[]
             {
@@ -51,6 +52,8 @@ public class Game1 : Game
             Sprites, _player, bullet);
 
         CreateLabyrinthGenerator();
+
+        _font = Content.Load<SpriteFont>("File");
         _camera = new Camera();
         
         Sprites.Add(_player);
@@ -59,6 +62,7 @@ public class Game1 : Game
     private void CreateLabyrinthGenerator()
     {
         var wall = new Wall(Content.Load<Texture2D>("wall"));
+        
         var location = new ILocation[] { new DefoultLocation() };
         _labyrinthGenerator = new LabyrinthGenerator(wall, Sprites, location);
         _labyrinthGenerator.AddRandomLoc(new Vector2());
@@ -67,7 +71,8 @@ public class Game1 : Game
     private void SearchCursor()
     {
         Cursor = Mouse.GetState().Position.ToVector2();
-        Cursor = new Vector2(-(ScreenCenter.X - Cursor.X) + _player.Position.X, -(ScreenCenter.Y - Cursor.Y) + _player.Position.Y);
+        Cursor = new Vector2(-(_screenCenter.X - _player.Bounds.Width/2 - Cursor.X) + _player.Position.X,
+            -(_screenCenter.Y - _player.Bounds.Height/2 - Cursor.Y) + _player.Position.Y);
         _camera.Follow(_player);
     }
 
@@ -111,6 +116,8 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
+
+        CheckOnPlayerDead();
         
         foreach (var sprite in Sprites)
             sprite.Draw(_spriteBatch);
@@ -118,5 +125,16 @@ public class Game1 : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+    
+    private void CheckOnPlayerDead()
+    {
+        if (_player.IsRemoved)
+        {
+            var pos = new Vector2(_player.Position.X -50, _player.Position.Y-100);
+            Sprites.Clear();
+            _spriteBatch.DrawString(_font, "you lose", pos, Color.Red);
+            //restartGame
+        }
     }
 }

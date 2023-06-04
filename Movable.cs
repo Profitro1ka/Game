@@ -12,7 +12,8 @@ public class Movable: Sprite, IShooter
     protected float _ShootTimer;
     protected Vector2 Target; 
     public Vector2 DirectionToTarget;
-    
+    public override Rectangle Bounds => new ((int)(Position.X + _origin.X/2), (int)(Position.Y + _origin.Y/2), _texture2D.Width, _texture2D.Height);
+
     protected Movable(Texture2D texture2D) : base(texture2D)
     {
     }
@@ -39,9 +40,6 @@ public class Movable: Sprite, IShooter
     }
 
     public float AttackCd { get ; set ; }
-
-    public float AttackRange { get; }
-
     public Bullet CurBullet { get; set; }
 
     public virtual void Shoot(List<Sprite> sprites, GameTime gameTime)

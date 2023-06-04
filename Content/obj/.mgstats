@@ -1,4 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/../../../../Downloads/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",309,1109,0,154924
-"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/../../../../Downloads/wall.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/wall.xnb","TextureProcessor","Texture2DContent",674,65621,0,0046703
-"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",571,2389,0,0059451
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/../../../../Downloads/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",309,1109,0,264203
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",571,2389,0,0077105
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/File.spritefont","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/File.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21538,0,2734202

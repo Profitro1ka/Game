@@ -28,3 +28,4 @@ C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\triangle.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\blueEnemy.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\yellowEnemy.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\wall.xnb
+C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\File.xnb

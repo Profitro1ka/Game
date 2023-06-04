@@ -8,14 +8,15 @@ namespace MyGame;
 
 public class Sprite : ICloneable
 {
-    private Texture2D _texture2D;
+    protected Texture2D _texture2D;
 
-    public Rectangle Bounds => new ((int)Position.X, (int)Position.Y, _texture2D.Width, _texture2D.Height);
+    public virtual Rectangle Bounds =>new((int)(Position.X - _origin.X / 2), (int)(Position.Y - _origin.Y / 2), _texture2D.Width,
+                _texture2D.Height);
 
     protected float Rotation;
 
     public Vector2 Position;
-    private Vector2 _origin;
+    protected readonly Vector2 _origin;
 
     public bool IsRemoved = false;
     public Sprite Parent;

@@ -14,6 +14,7 @@ public class Player : Movable//, IShooter
     private KeyboardState _previousKey;
     private float _attackCd { get ; }
     public new float AttackRange => CurBullet.LifeSpan * CurBullet.Speed;
+
     
     public Player(Texture2D texture2D) : base(texture2D)
     {
@@ -27,7 +28,7 @@ public class Player : Movable//, IShooter
     {
         CurBullet = curBullet;
         _attackCd = 0.5f;
-        Hp = 100;
+        Hp = 10000;
     }
 
     public override void Update(GameTime gameTime, List<Sprite> sprites)
@@ -35,26 +36,43 @@ public class Player : Movable//, IShooter
         SearchTarget();
         _previousKey = _currentKey;
         _currentKey = Keyboard.GetState();
-        Move();
         Dash();
+        Move();
         Shoot(sprites, gameTime);
         IsDead();
     }
-    
+
     protected override void Move()
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.A))
-            Position.X -= Speed;
+        var nextMove = Position;
+        
+        if (_currentKey.IsKeyDown(Keys.A))
+            nextMove.X -= Speed;
+        
+        if (_currentKey.IsKeyDown(Keys.D))
+            nextMove.X += Speed;
+        
+        if (_currentKey.IsKeyDown(Keys.S))
+            nextMove.Y += Speed;
+        
+        if (_currentKey.IsKeyDown(Keys.W))
+            nextMove.Y -= Speed;
+        
+        var nextBounds = new Rectangle((int)nextMove.X, (int)nextMove.Y, _texture2D.Width, _texture2D.Height);
 
-        if (Keyboard.GetState().IsKeyDown(Keys.D))
-            Position.X += Speed;
+        foreach (var otherSprite in Game1.Sprites)
+        {
+            if (otherSprite != this && otherSprite is not Bullet)
+            {
+                if (nextBounds.Intersects(otherSprite.Bounds))
+                {
+                    return;
+                }
+            }
+        }
 
-        if (Keyboard.GetState().IsKeyDown(Keys.W))
-            Position.Y -= Speed;
-
-        if (Keyboard.GetState().IsKeyDown(Keys.S))
-            Position.Y += Speed;
-    }
+        Position = nextMove;
+    } 
     
     protected override void SearchTarget()
     {
@@ -67,10 +85,26 @@ public class Player : Movable//, IShooter
 
     private void Dash()
     {
+        var nextMove = Position;
         if (_currentKey.IsKeyDown(Keys.Space) && _currentKey != _previousKey)
         {
-            Position += DirectionToTarget * _dashRange;
+            nextMove += DirectionToTarget * _dashRange;
         }
+
+        var nextBounds = new Rectangle((int)nextMove.X, (int)nextMove.Y, _texture2D.Width, _texture2D.Height); //dry
+
+        foreach (var otherSprite in Game1.Sprites)
+        {
+            if (otherSprite != this && otherSprite is not Bullet)
+            {
+                if (nextBounds.Intersects(otherSprite.Bounds))
+                {
+                    return;
+                }
+            }
+        }
+        
+        Position = nextMove;
     }
 
     public override void Shoot(List<Sprite> sprites, GameTime gameTime)

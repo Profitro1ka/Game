@@ -61,6 +61,13 @@
 /processorParam:TextureFormat=Color
 /build:bullet.png
 
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont
+
 #begin triangle.png
 /importer:TextureImporter
 /processor:TextureProcessor
