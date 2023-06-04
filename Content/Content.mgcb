@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:../../../../Downloads/bullet.png;bullet.png
 
+#begin ../../../../Downloads/hpbar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../Downloads/hpbar.png;hpbar.png
+
 #begin ../../../../Downloads/wall.png
 /importer:TextureImporter
 /processor:TextureProcessor

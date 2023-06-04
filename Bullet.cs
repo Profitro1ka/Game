@@ -28,7 +28,7 @@ public class Bullet: Movable
             {
                 if (otherSprite is Wall)
                     IsRemoved = true;
-                if(Parent is FirstEnemy && otherSprite is FirstEnemy )
+                if(Parent is FirstEnemy && otherSprite is FirstEnemy || otherSprite is Player { IsDashing: true })
                     continue;
                 if (otherSprite is not Bullet && otherSprite is Movable movable)
                 {

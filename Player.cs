@@ -8,7 +8,7 @@ namespace MyGame;
 
 public class Player : Movable//, IShooter
 {
-    private int _dashRange = 100;
+    private int _dashRange = 200;
     
     private KeyboardState _currentKey;
     private KeyboardState _previousKey;
@@ -28,7 +28,7 @@ public class Player : Movable//, IShooter
     {
         CurBullet = curBullet;
         _attackCd = 0.5f;
-        Hp = 10000;
+        Hp = 100;
     }
 
     public override void Update(GameTime gameTime, List<Sprite> sprites)
@@ -36,7 +36,7 @@ public class Player : Movable//, IShooter
         SearchTarget();
         _previousKey = _currentKey;
         _currentKey = Keyboard.GetState();
-        Dash();
+        Dash(gameTime);
         Move();
         Shoot(sprites, gameTime);
         IsDead();
@@ -83,28 +83,51 @@ public class Player : Movable//, IShooter
         Rotation = (float)Math.Atan2(DirectionToTarget.Y, DirectionToTarget.X);
     }
 
-    private void Dash()
+    private Vector2 _dashStartPosition;
+    private Vector2 _dashEndPosition; // добавлено поле для сохранения конечной позиции DASH
+    private const float DashDuration = 0.2f;
+    public bool IsDashing;
+    private TimeSpan _dashEndTime;
+    
+
+    private void Dash(GameTime gameTime)
     {
-        var nextMove = Position;
         if (_currentKey.IsKeyDown(Keys.Space) && _currentKey != _previousKey)
         {
-            nextMove += DirectionToTarget * _dashRange;
-        }
+            _dashStartPosition = Position;
+            _dashEndPosition = Position + _dashRange * DirectionToTarget; 
+            
+            var nextBounds = new Rectangle((int)_dashEndPosition.X, (int)_dashEndPosition.Y, _texture2D.Width, _texture2D.Height);
 
-        var nextBounds = new Rectangle((int)nextMove.X, (int)nextMove.Y, _texture2D.Width, _texture2D.Height); //dry
-
-        foreach (var otherSprite in Game1.Sprites)
-        {
-            if (otherSprite != this && otherSprite is not Bullet)
+            foreach (var otherSprite in Game1.Sprites)
             {
-                if (nextBounds.Intersects(otherSprite.Bounds))
+                if (otherSprite != this && otherSprite is not Bullet)
                 {
-                    return;
+                    if (nextBounds.Intersects(otherSprite.Bounds))
+                    {
+                        IsDashing = false;
+                        return;
+                    }
                 }
             }
+            
+            _dashEndTime = gameTime.TotalGameTime + TimeSpan.FromSeconds(DashDuration);
+            IsDashing = true;
         }
-        
-        Position = nextMove;
+
+        if (IsDashing)
+        {
+            var timeFraction = (float)(_dashEndTime - gameTime.TotalGameTime).TotalSeconds / DashDuration;
+            var distanceFraction = 1 - timeFraction;
+
+            Position = _dashStartPosition + distanceFraction * (_dashEndPosition - _dashStartPosition);
+
+            if (timeFraction <= 0)
+            {
+                IsDashing = false;
+                Position = _dashEndPosition; 
+            }
+        }
     }
 
     public override void Shoot(List<Sprite> sprites, GameTime gameTime)

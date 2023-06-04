@@ -10,8 +10,8 @@ public class Sprite : ICloneable
 {
     protected Texture2D _texture2D;
 
-    public virtual Rectangle Bounds =>new((int)(Position.X - _origin.X / 2), (int)(Position.Y - _origin.Y / 2), _texture2D.Width,
-                _texture2D.Height);
+    public virtual Rectangle Bounds =>new((int)(Position.X - _texture2D.Width/2.7), 
+        (int)(Position.Y - _texture2D.Height/2.7), _texture2D.Width, _texture2D.Height);
 
     protected float Rotation;
 
@@ -40,8 +40,7 @@ public class Sprite : ICloneable
 
     protected virtual bool Сollide()
     {
-        return Game1.Sprites
-            .Any(otherSprite => this != otherSprite && otherSprite is Wall && Bounds.Intersects(otherSprite.Bounds));
+        return false;
     }
     
     public void Draw(SpriteBatch spriteBatch)

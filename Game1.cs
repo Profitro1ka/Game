@@ -21,6 +21,7 @@ public class Game1 : Game
     
     public static List<Sprite> Sprites;
     private SpriteFont _font;
+    private Texture2D _hpBarTexture;
 
     public Game1()
     {
@@ -50,6 +51,8 @@ public class Game1 : Game
                 new RoundAttack(Content.Load<Texture2D>("blueEnemy"))
             },
             Sprites, _player, bullet);
+
+        _hpBarTexture = Content.Load<Texture2D>("hpbar");
 
         CreateLabyrinthGenerator();
 
@@ -118,13 +121,23 @@ public class Game1 : Game
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
         CheckOnPlayerDead();
-        
-        foreach (var sprite in Sprites)
-            sprite.Draw(_spriteBatch);
-        
+
+        DrawSprites();
+
         _spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+
+    private void DrawSprites()
+    {
+        foreach (var sprite in Sprites)
+        {
+            sprite.Draw(_spriteBatch);
+            if(sprite is Movable movable)
+                _spriteBatch.Draw(_hpBarTexture, new Rectangle((int)movable.Position.X - 24, (int)movable.Position.Y + 50,
+                    (int)movable.Hp / 2, 20), Color.Red);
+        }
     }
     
     private void CheckOnPlayerDead()

@@ -34,7 +34,7 @@ public class RoundAttack: IPatternAttack
         var thisBullet = bullet.Clone() as Bullet;
         thisBullet.Position = position;
         thisBullet.LifeSpan = 2f;
-        thisBullet.Speed = 5f;
+        thisBullet.Speed = 10f;
         thisBullet.Parent = parent;
         thisBullet.Damage = 15f;
         thisBullet.DirectionToTarget = directionToTarget;
