@@ -129,10 +129,12 @@ public class Game1 : Game
 
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
-        CheckOnPlayerDead();
-        
-        var pos = new Vector2(_player.Position.X + ScreenWight/2 - 20, _player.Position.Y - ScreenHeight/2 + 50);
-        _spriteBatch.DrawString(_font, $"{score}", pos, Color.Red);
+        if (!CheckOnPlayerDead())
+        {
+            var pos = new Vector2(_player.Position.X + ScreenWight / 2 - 20,
+                _player.Position.Y - ScreenHeight / 2 + 50);
+            _spriteBatch.DrawString(_font, $"{score}", pos, Color.Red);
+        }
 
         DrawSprites();
 
@@ -152,14 +154,17 @@ public class Game1 : Game
         }
     }
     
-    private void CheckOnPlayerDead()
+    private bool CheckOnPlayerDead()
     {
         if (_player.IsRemoved)
         {
             var pos = new Vector2(_player.Position.X -50, _player.Position.Y-100);
             Sprites.Clear();
-            _spriteBatch.DrawString(_font, "you lose", pos, Color.Red);
+            _spriteBatch.DrawString(_font, $"you lose\n score: {score}", pos, Color.Red);
+            return true;
             //restartGame
         }
+
+        return false;
     }
 }
