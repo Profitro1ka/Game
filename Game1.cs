@@ -15,6 +15,7 @@ public class Game1 : Game
     private Camera _camera { get; set; }
     public static Vector2 Cursor { get; private set; }
     private static Vector2 _screenCenter => new (ScreenWight / 2, ScreenHeight / 2);
+    private static int score = 0;
     
     public static int ScreenHeight;
     public static int ScreenWight;
@@ -33,8 +34,9 @@ public class Game1 : Game
     protected override void Initialize()
     {
         Sprites = new List<Sprite>();
-        ScreenHeight = _graphics.PreferredBackBufferHeight;
-        ScreenWight = _graphics.PreferredBackBufferWidth;
+        ScreenHeight = _graphics.PreferredBackBufferHeight = 720;
+        ScreenWight = _graphics.PreferredBackBufferWidth = 1440;
+        _graphics.ApplyChanges();
         
         base.Initialize();
     }
@@ -66,9 +68,13 @@ public class Game1 : Game
     {
         var wall = new Wall(Content.Load<Texture2D>("wall"));
         
-        var location = new ILocation[] { new DefoultLocation() };
+        var location = new ILocation[]
+        {
+            new DefoultLocation(),
+            new SecLocation()
+        };
         _labyrinthGenerator = new LabyrinthGenerator(wall, Sprites, location);
-        _labyrinthGenerator.AddRandomLoc(new Vector2());
+        _labyrinthGenerator.AddStartLoc(new Vector2());
     }
 
     private void SearchCursor()
@@ -97,6 +103,9 @@ public class Game1 : Game
         for (var i = 0; i < Sprites.Count; i++)
             if (Sprites[i].IsRemoved)
             {
+                if (Sprites[i] is FirstEnemy)
+                    score += 10;
+                
                 Sprites.RemoveAt(i);
                 i--;
             }
@@ -121,6 +130,9 @@ public class Game1 : Game
         _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
         CheckOnPlayerDead();
+        
+        var pos = new Vector2(_player.Position.X + ScreenWight/2 - 20, _player.Position.Y - ScreenHeight/2 + 50);
+        _spriteBatch.DrawString(_font, $"{score}", pos, Color.Red);
 
         DrawSprites();
 

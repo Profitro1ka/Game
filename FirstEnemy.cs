@@ -27,7 +27,6 @@ public class FirstEnemy : Movable, IEnemy
     {
         _player = player;
         CurBullet = curBullet;
-        _attackCd = 1f;
         Hp = 100;
         PatternAttacks = new []{patternAttack};
         _attackRange = PatternAttacks[0].AttackRange;
