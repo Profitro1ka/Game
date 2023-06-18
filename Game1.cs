@@ -12,10 +12,10 @@ public class Game1 : Game
     private Player _player;
     private GeneratorEnemy _generatorEnemy;
     private LabyrinthGenerator _labyrinthGenerator;
-    private Camera _camera { get; set; }
+    private Camera Camera { get; set; }
     public static Vector2 Cursor { get; private set; }
-    private static Vector2 _screenCenter => new (ScreenWight / 2, ScreenHeight / 2);
-    private static int score = 0;
+    private static Vector2 ScreenCenter => new (ScreenWight / 2, ScreenHeight / 2);
+    private static int _score = 0;
     
     public static int ScreenHeight;
     public static int ScreenWight;
@@ -52,6 +52,7 @@ public class Game1 : Game
                 new DefaultAttack(Content.Load<Texture2D>("yellowEnemy")),
                 new RoundAttack(Content.Load<Texture2D>("blueEnemy"))
             },
+            Content.Load<Texture2D>("boss"),
             Sprites, _player, bullet);
 
         _hpBarTexture = Content.Load<Texture2D>("hpbar");
@@ -59,7 +60,7 @@ public class Game1 : Game
         CreateLabyrinthGenerator();
 
         _font = Content.Load<SpriteFont>("File");
-        _camera = new Camera();
+        Camera = new Camera();
         
         Sprites.Add(_player);
     }
@@ -80,9 +81,9 @@ public class Game1 : Game
     private void SearchCursor()
     {
         Cursor = Mouse.GetState().Position.ToVector2();
-        Cursor = new Vector2(-(_screenCenter.X - _player.Bounds.Width/2 - Cursor.X) + _player.Position.X,
-            -(_screenCenter.Y - _player.Bounds.Height/2 - Cursor.Y) + _player.Position.Y);
-        _camera.Follow(_player);
+        Cursor = new Vector2(-(ScreenCenter.X - _player.Bounds.Width/2 - Cursor.X) + _player.Position.X,
+            -(ScreenCenter.Y - _player.Bounds.Height/2 - Cursor.Y) + _player.Position.Y);
+        Camera.Follow(_player);
     }
 
     private void CreateLab()
@@ -103,18 +104,38 @@ public class Game1 : Game
         for (var i = 0; i < Sprites.Count; i++)
             if (Sprites[i].IsRemoved)
             {
-                if (Sprites[i] is FirstEnemy)
-                    score += 10;
-                
+                if (Sprites[i] is Enemy)
+                {
+                    if (Sprites[i] is Boss)
+                    {
+                        _bossIsdead = true;
+                        _score += 100;
+                    }
+
+                    _score += 10;
+                }
+
                 Sprites.RemoveAt(i);
                 i--;
             }
+    }
+
+    private bool _bossIsdead;
+    private void WinGame()
+    {
+        if (bossIsSpawn && _bossIsdead)
+        {
+            var pos = new Vector2(_player.Position.X - 50, _player.Position.Y - 100);
+            Sprites.Clear();
+            _spriteBatch.DrawString(_font, $"you win\nscore: {_score}", pos, Color.Red);
+        }
     }
 
     protected override void Update(GameTime gameTime)
     {
         SearchCursor();
         CreateLab();
+        SpawnBoss();
         
         _generatorEnemy.AddRandomEnemy(gameTime);
 
@@ -123,18 +144,29 @@ public class Game1 : Game
         base.Update(gameTime);
     }
 
+    private bool bossIsSpawn;
+    private void SpawnBoss()
+    {
+        if (LocationGenerator.CreatedLocation.Count >= 5 && !bossIsSpawn)
+        {
+            _generatorEnemy.SpawnBoss();
+            bossIsSpawn = true;
+        }
+    }
+
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin(transformMatrix: _camera.Transform);
+        _spriteBatch.Begin(transformMatrix: Camera.Transform);
 
-        if (!CheckOnPlayerDead())
-        {
-            var pos = new Vector2(_player.Position.X + ScreenWight / 2 - 20,
-                _player.Position.Y - ScreenHeight / 2 + 50);
-            _spriteBatch.DrawString(_font, $"{score}", pos, Color.Red);
-        }
+        CheckOnPlayerDead();
+        WinGame();
+        // {
+        //     var pos = new Vector2(_player.Position.X + ScreenWight / 2 - 20,
+        //         _player.Position.Y - ScreenHeight / 2 + 50);
+        //     _spriteBatch.DrawString(_font, $"{_score}", pos, Color.Red);
+        // }
 
         DrawSprites();
 
@@ -160,7 +192,7 @@ public class Game1 : Game
         {
             var pos = new Vector2(_player.Position.X -50, _player.Position.Y-100);
             Sprites.Clear();
-            _spriteBatch.DrawString(_font, $"you lose\n score: {score}", pos, Color.Red);
+            _spriteBatch.DrawString(_font, $"you lose\n score: {_score}", pos, Color.Red);
             return true;
             //restartGame
         }

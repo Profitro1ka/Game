@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MyGame;
 
@@ -12,14 +13,16 @@ public class GeneratorEnemy
     private Player _player;
     private readonly Bullet _bullet;
     private float _timer;
-    private float _spawnCD;
+    private float _spawnCd;
+    private readonly Texture2D _bossTexture;
 
-    public GeneratorEnemy(IPatternAttack[] typeOfEnemy, List<Sprite> sprites, Player player, Bullet bullet)
+    public GeneratorEnemy(IPatternAttack[] typeOfEnemy,Texture2D bossTexture, List<Sprite> sprites, Player player, Bullet bullet)
     {
         _typeOfEnemy = typeOfEnemy;
         _player = player;
         _sprites = sprites;
         _bullet = bullet;
+        _bossTexture = bossTexture;
     }
 
     private Vector2 GetRandomPosition()
@@ -35,20 +38,26 @@ public class GeneratorEnemy
         }
     }
 
-    private FirstEnemy CreateRandomEnemy()
+    private Enemy CreateRandomEnemy()
     {
         var index = _random.Next(0, _typeOfEnemy.Length);
         var texture = _typeOfEnemy[index].Texture;
-        return new FirstEnemy(texture, GetRandomPosition(),_player, _bullet, _typeOfEnemy[index]);
+        return new Enemy(texture, GetRandomPosition(),_player, _bullet, _typeOfEnemy[index]);
+    }
+
+    public void SpawnBoss()
+    {
+        var boss = new Boss(_bossTexture, GetRandomPosition(),_player, _bullet, new BossPattern(_bossTexture));
+        _sprites.Add(boss);
     }
 
     public void AddRandomEnemy(GameTime gameTime)
     {
         _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
         
-        if(_timer > _spawnCD)
+        if(_timer > _spawnCd)
         {
-            _spawnCD = _random.Next(5, 15);
+            _spawnCd = _random.Next(5, 15);
             _sprites.Add(CreateRandomEnemy());
             _timer = 0;
         }

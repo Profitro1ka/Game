@@ -6,7 +6,7 @@ namespace MyGame;
 
 public class Movable: Sprite, IShooter
 {
-    public float Speed = 5;
+    protected float Speed = 5;
     public float Hp;
     
     protected float _ShootTimer;

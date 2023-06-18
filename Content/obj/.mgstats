@@ -1,3 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/../../../../Downloads/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",309,1109,0,1605082
-"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",571,2389,0,0031726
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/../../../../Downloads/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",309,1109,0,204595
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/boss.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/boss.xnb","TextureProcessor","Texture2DContent",8523,65621,0,0189567
+"C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png","C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/bullet.xnb","TextureProcessor","Texture2DContent",571,2389,0,0145838

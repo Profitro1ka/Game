@@ -30,3 +30,4 @@ C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\yellowEnemy.
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\wall.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\File.xnb
 C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\hpBar.xnb
+C:\Users\turki\RiderProjects\MyGame\MyGame\bin\Debug\net6.0\Content\boss.xnb

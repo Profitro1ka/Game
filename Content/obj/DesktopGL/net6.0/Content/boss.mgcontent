@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bullet.png</SourceFile>
-  <SourceTime>2023-06-03T11:54:07.9015262+05:00</SourceTime>
-  <DestFile>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/DesktopGL/Content/bullet.xnb</DestFile>
-  <DestTime>2023-06-18T19:45:19.606691+05:00</DestTime>
+  <SourceFile>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/boss.png</SourceFile>
+  <SourceTime>2023-06-18T18:33:01.5185638+05:00</SourceTime>
+  <DestFile>C:/Users/turki/RiderProjects/MyGame/MyGame/Content/bin/DesktopGL/Content/boss.xnb</DestFile>
+  <DestTime>2023-06-18T18:35:10.7679607+05:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T16:44:56+05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

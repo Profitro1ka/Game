@@ -5,25 +5,25 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MyGame;
 
-public class FirstEnemy : Movable, IEnemy
+public class Enemy : Movable
 {
     private Player _player;
     private float _attackCd;
-    private float _toPlayerRange => (_player.Position - Position).Length();
+    private float ToPlayerRange => (_player.Position - Position).Length();
     private float _attackRange;
 
-    public IPatternAttack[] PatternAttacks { get; set; } 
+    private IPatternAttack[] PatternAttacks { get; set; } 
     
     
-    protected FirstEnemy(Texture2D texture2D) : base(texture2D)
+    protected Enemy(Texture2D texture2D) : base(texture2D)
     {
     }
 
-    protected FirstEnemy(Texture2D texture2D, Vector2 position) : base(texture2D, position)
+    protected Enemy(Texture2D texture2D, Vector2 position) : base(texture2D, position)
     {
     }
 
-    public FirstEnemy(Texture2D texture2D, Vector2 position, Player player, Bullet curBullet, IPatternAttack patternAttack) : base(texture2D, position)
+    public Enemy(Texture2D texture2D, Vector2 position, Player player, Bullet curBullet, IPatternAttack patternAttack) : base(texture2D, position)
     {
         _player = player;
         CurBullet = curBullet;
@@ -66,12 +66,28 @@ public class FirstEnemy : Movable, IEnemy
 
     protected override void Move()
     {
-        if (_toPlayerRange > 0.9 * _attackRange)
+        if (ToPlayerRange > 0.9 * _attackRange)
             Position += Speed * DirectionToTarget;
     }
 
     private bool CanShoot()
     {
-        return _attackRange > _toPlayerRange ;
+        return _attackRange > ToPlayerRange ;
+    }
+}
+
+public class Boss: Enemy
+{
+    protected Boss(Texture2D texture2D) : base(texture2D)
+    {
+    }
+
+    protected Boss(Texture2D texture2D, Vector2 position) : base(texture2D, position)
+    {
+    }
+
+    public Boss(Texture2D texture2D, Vector2 position, Player player, Bullet curBullet, IPatternAttack patternAttack) : base(texture2D, position, player, curBullet, patternAttack)
+    {
+        Hp = 150;
     }
 }

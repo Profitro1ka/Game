@@ -6,6 +6,7 @@ namespace MyGame;
 
 public class Wall: Sprite
 {
+    public static List<Wall> Walls = new();
     public Wall(Texture2D texture2D) : base(texture2D)
     {
     }
@@ -18,7 +19,7 @@ public class Wall: Sprite
     {
         var newWall = wall.Clone() as Wall;
         newWall.Position = position;
-        
+        Walls.Add(newWall);
         sprites.Add(newWall);
     }
 }
